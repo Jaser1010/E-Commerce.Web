@@ -19,28 +19,28 @@ namespace E_Commerce.Persistence.Data.DataSeed
 			_dbContext = dbContext;
 		}
 
-		public void Initialize()
+		public async Task InitializeAsync()
 		{
 			try
 			{
-				var HasProducts = _dbContext.Products.Any();
-				var HasBrands = _dbContext.Brands.Any();
-				var HasTypes = _dbContext.Types.Any();
+				var HasProducts = await _dbContext.Products.AnyAsync();
+				var HasBrands = await _dbContext.Brands.AnyAsync();
+				var HasTypes = await _dbContext.Types.AnyAsync();
 				if (HasProducts && HasBrands && HasTypes) return;
 
 				if (!HasBrands)
 				{
-					SeedDataFromJson<ProductBrand, int>("brands.json", _dbContext.Brands);
+					await SeedDataFromJsonAsync<ProductBrand, int>("brands.json", _dbContext.Brands);
 				}
 				if(!HasTypes)
 				{
-					SeedDataFromJson<ProductType, int>("types.json", _dbContext.Types);
-					_dbContext.SaveChanges();
+					await SeedDataFromJsonAsync<ProductType, int>("types.json", _dbContext.Types);
+					await _dbContext.SaveChangesAsync();
 				}
 				if (!HasProducts)
 				{
-					SeedDataFromJson<Product, int>("products.json", _dbContext.Products);
-					_dbContext.SaveChanges();
+					await SeedDataFromJsonAsync<Product, int>("products.json", _dbContext.Products);
+					await _dbContext.SaveChangesAsync();
 				}
 					
 			}
@@ -51,7 +51,7 @@ namespace E_Commerce.Persistence.Data.DataSeed
 			}
 		}
 
-		private void SeedDataFromJson<T, TKey>(string FileName, DbSet<T> dbset) where T : BaseEntity<TKey>
+		private async Task SeedDataFromJsonAsync<T, TKey>(string FileName, DbSet<T> dbset) where T : BaseEntity<TKey>
 		{
 
 			// var FilePath = @"..\E-Commerce.Persistence\Data\DataSeed\JSONFiles\" + FileName;
@@ -63,13 +63,13 @@ namespace E_Commerce.Persistence.Data.DataSeed
 			try
 			{
 				using var dataStram = File.OpenRead(FilePath);
-				var data = JsonSerializer.Deserialize<List<T>>(dataStram, new JsonSerializerOptions()
+				var data = await JsonSerializer.DeserializeAsync<List<T>>(dataStram, new JsonSerializerOptions()
 				{
 					PropertyNameCaseInsensitive = true 
 				});
 				if (data != null && data.Count > 0)
 				{
-					dbset.AddRange(data);
+					await dbset.AddRangeAsync(data);
 				}
 			}
 			catch(Exception ex)

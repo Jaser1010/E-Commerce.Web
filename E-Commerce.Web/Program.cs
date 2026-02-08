@@ -9,7 +9,7 @@ namespace E_Commerce.Web
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +27,8 @@ namespace E_Commerce.Web
 			var app = builder.Build();
 
 			#region Data seeding [Extension methods for database migration and seeding]
-			app.MigrateDatabase();
-			app.SeedDatabase();
+			await app.MigrateDatabaseAsync();
+			await app.SeedDatabaseAsync();
 			#endregion
 
 			#region Confiure the HTTP request pipeline
@@ -43,7 +43,7 @@ namespace E_Commerce.Web
 			app.MapControllers();
 			#endregion
 
-			app.Run();
+			await app.RunAsync();
 		}
 	}
 }
