@@ -15,4 +15,16 @@
     <ProjectReference Include="..\E Commerce.Services\E Commerce.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\DataSeed\JSONFiles\brands.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\DataSeed\JSONFiles\products.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\DataSeed\JSONFiles\types.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,10 @@
 using E_Commerce.Domain.Contracts;
 using E_Commerce.Persistence.Data.DataSeed;
 using E_Commerce.Persistence.Data.DbContexts;
+using E_Commerce.Persistence.Repositories;
+using E_Commerce.Services;
+using E_Commerce.Services.MappingProfiles;
+using E_Commerce.Services_Abstraction;
 using E_Commerce.Web.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +26,10 @@ namespace E_Commerce.Web
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 			});
 			builder.Services.AddScoped<IDataInitializer, DataInitializer>(); 
+			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+			//builder.Services.AddAutoMapper(X => X.LicenseKey = "", typeof(ProductProfile).Assembly); // If you have a license key for AutoMapper, you can set it here. Otherwise, you can omit this line.
+			builder.Services.AddAutoMapper(typeof(ServicesAssemblyReference).Assembly);
+			builder.Services.AddScoped<IProductService, ProductService>();
 			#endregion
 
 			var app = builder.Build();
@@ -30,7 +38,7 @@ namespace E_Commerce.Web
 			await app.MigrateDatabaseAsync();
 			await app.SeedDatabaseAsync();
 			#endregion
-
+			
 			#region Confiure the HTTP request pipeline
 			if (app.Environment.IsDevelopment())
 			{
@@ -40,6 +48,7 @@ namespace E_Commerce.Web
 			}
 			app.UseHttpsRedirection();
 			app.UseAuthorization();
+			app.UseStaticFiles();
 			app.MapControllers();
 			#endregion
 
