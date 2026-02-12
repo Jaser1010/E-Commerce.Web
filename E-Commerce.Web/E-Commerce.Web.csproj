@@ -9,7 +9,36 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\products\CasualSneakers.jpg" />
+    <None Include="wwwroot\images\products\ClassicBlackDressPants.jpg" />
+    <None Include="wwwroot\images\products\ClassicWhiteTShirt.jpeg" />
+    <None Include="wwwroot\images\products\CottonHoodie.jpg" />
+    <None Include="wwwroot\images\products\DenimJacket.jpg" />
+    <None Include="wwwroot\images\products\FormalBlazer.jpg" />
+    <None Include="wwwroot\images\products\KnittedSweater.jpg" />
+    <None Include="wwwroot\images\products\MensLeatherJacket.jpg" />
+    <None Include="wwwroot\images\products\MensPoloShirt.jpg" />
+    <None Include="wwwroot\images\products\SlimFitJeans.jpg" />
+    <None Include="wwwroot\images\products\SummerFloralDress.jpg" />
+    <None Include="wwwroot\images\products\WomensTrenchCoat.jpeg" />
+    <None Include="wwwroot\images\products\WoolScarf.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E Commerce.Persistence\E Commerce.Persistence.csproj" />
+    <ProjectReference Include="..\E Commerce.Presentation\E Commerce.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

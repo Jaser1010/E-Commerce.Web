@@ -1,3 +1,15 @@
 <Solution>
-  <Project Path="E-Commerce.Web/E-Commerce.Web.csproj" />
+  <Folder Name="/ApplicationCoreLayer/">
+    <Project Path="E Commerce.Domain/E Commerce.Domain.csproj" />
+    <Project Path="E Commerce.Services Abstraction/E Commerce.Services Abstraction.csproj" />
+    <Project Path="E Commerce.Services/E Commerce.Services.csproj" />
+  </Folder>
+  <Folder Name="/InfrastructureLayer/">
+    <Project Path="E Commerce.Persistence/E Commerce.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/PresentationLayer/">
+    <Project Path="E Commerce.Presentation/E Commerce.Presentation.csproj" />
+    <Project Path="E-Commerce.Web/E-Commerce.Web.csproj" />
+  </Folder>
+  <Project Path="E Commerce.Shared/E Commerce.Shared.csproj" />
 </Solution>
