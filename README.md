@@ -765,15 +765,11 @@ Distributed under the **MIT License** — see the [LICENSE](LICENSE) file for de
 <table>
 <tr>
 <td align="center">
-<a href="https://github.com/Jaser1010">
-<b>Jaser</b>
-</a>
-<br/>
-<sub>Software Engineer</sub>
+<a href="https://github.com/Jaser1010"><b>Jaser Kasim</b></a>
+<br/><sub>Software Engineer</sub>
 <br/><br/>
-<a href="https://github.com/Jaser1010">
-<img src="https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white" alt="GitHub"/>
-</a>
+<a href="https://github.com/Jaser1010"><img src="https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>
+<a href="https://www.linkedin.com/in/jaser-kasim-j1k2/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
 </td>
 </tr>
 </table>
