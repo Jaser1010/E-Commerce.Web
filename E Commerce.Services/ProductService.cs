@@ -5,6 +5,7 @@ using E_Commerce.Services.Exceptions;
 using E_Commerce.Services.Specifications;
 using E_Commerce.Services_Abstraction;
 using E_Commerce.Shared;
+using E_Commerce.Shared.CommonResult;
 using E_Commerce.Shared.DTOs.ProductDTOs;
 using System;
 using System.Collections.Generic;
@@ -22,19 +23,17 @@ namespace E_Commerce.Services
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 		}
+
+
+
+
+
+
+
 		public async Task<IEnumerable<BrandDTO>> GetAllBrandsAsync()
 		{
 			var brands = await _unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync();
 			return _mapper.Map<IEnumerable<BrandDTO>>(brands);
-		}
-
-		public async Task<ProductDTO> GetProductByIdAsync(int id)
-		{
-			var Specification = new ProductWithTypeAndBrandSpecification(id);
-			var product = await _unitOfWork.GetRepository<Product, int>().GetByIdAsync(Specification);
-			if(product is null) 
-				throw new ProductNotFoundException(id);
-			return _mapper.Map<ProductDTO>(product);
 		}
 
 		public async Task<PaginatedResuIt<ProductDTO>> GetAllProductsAsync(ProductQueryParams queryParams)
@@ -54,6 +53,16 @@ namespace E_Commerce.Services
 		{
 			var types = await _unitOfWork.GetRepository<ProductType, int>().GetAllAsync();
 			return _mapper.Map<IEnumerable<TypeDTO>>(types);
+		}
+
+		public async Task<Result<ProductDTO>> GetProductByIdAsync(int id)
+		{
+			var Specification = new ProductWithTypeAndBrandSpecification(id);
+			var product = await _unitOfWork.GetRepository<Product, int>().GetByIdAsync(Specification);
+			if (product is null)
+				return Error.NotFound("Product.NotFound", $"Product With Id {id} Is Not Found");
+			return _mapper.Map<ProductDTO>(product);
+			// Implicit Casting To Result<ProductDTO>.Fail - Result<ProductDTO>.Ok
 		}
 	}
 }
