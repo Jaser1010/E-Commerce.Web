@@ -12,11 +12,15 @@ using E_Commerce.Services_Abstraction;
 using E_Commerce.Web.CustomMiddleWares;
 using E_Commerce.Web.Extensions;
 using E_Commerce.Web.Factories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
+using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace E_Commerce.Web
@@ -53,17 +57,31 @@ namespace E_Commerce.Web
 			{
 				options.InvalidModelStateResponseFactory = ApiResponseFactory.GenerateApiValidationResponse;
 			});
-
 			builder.Services.AddDbContext<StoreIdentityDbContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
 			});
-
 			builder.Services.AddIdentityCore<ApplicationUser>()
 			.AddRoles<IdentityRole>()
 			.AddEntityFrameworkStores<StoreIdentityDbContext>();
-
 			builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+			builder.Services.AddAuthentication(Options =>
+			{
+				Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // For authenticating incoming requests
+				Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // For handling unauthorized responses
+			}).AddJwtBearer(Options =>
+			{
+				Options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = builder.Configuration["JWTOptions:Issuer"],
+					ValidAudience = builder.Configuration["JWTOptions:Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTOptions:SecretKey"]!)),
+				};
+			});
 			#endregion
 
 			var app = builder.Build();
@@ -86,6 +104,7 @@ namespace E_Commerce.Web
 				app.UseSwaggerUI();
 			}
 			app.UseHttpsRedirection();
+			app.UseAuthentication();
 			app.UseAuthorization();
 			app.UseStaticFiles();
 			app.MapControllers();
