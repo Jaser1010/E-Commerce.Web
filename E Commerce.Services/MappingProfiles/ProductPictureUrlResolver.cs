@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using E_Commerce.Domain.Entities.ProductMudule;
+using E_Commerce.Domain.Entities.ProductModule;
 using E_Commerce.Shared.DTOs.ProductDTOs;
 using Microsoft.Extensions.Configuration;
 using System;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace E_Commerce.Domain.Entities.ProductMudule
+namespace E_Commerce.Domain.Entities.ProductModule
 {
 	public class Product : BaseEntity<int>
 	{
