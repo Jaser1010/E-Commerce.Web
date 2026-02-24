@@ -1,5 +1,5 @@
 ﻿using E_Commerce.Domain.Contracts;
-using E_Commerce.Domain.Entities.BasketMudule;
+using E_Commerce.Domain.Entities.BasketModule;
 using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 using System;
@@ -25,7 +25,7 @@ namespace E_Commerce.Persistence.Repositories
 			var IsCreatedOrUpdated = await _database.StringSetAsync(basket.Id, JsonBasket,ttl);
 			if (IsCreatedOrUpdated)
 			{
-				return await GetBasketAsync(basket.Id);
+				return await GetBasketAsync(basket.Id)!;
 			}
 			else
 			{

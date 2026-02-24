@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using E_Commerce.Domain.Contracts;
-using E_Commerce.Domain.Entities.BasketMudule;
+using E_Commerce.Domain.Entities.BasketModule;
 using E_Commerce.Services.Exceptions;
 using E_Commerce.Services_Abstraction;
 using E_Commerce.Shared.DTOs.BasketDTOs;

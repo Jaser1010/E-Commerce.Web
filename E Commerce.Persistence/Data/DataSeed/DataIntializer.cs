@@ -1,6 +1,7 @@
 ﻿using E_Commerce.Domain.Contracts;
 using E_Commerce.Domain.Entities;
-using E_Commerce.Domain.Entities.ProductMudule;
+using E_Commerce.Domain.Entities.OrderModule;
+using E_Commerce.Domain.Entities.ProductModule;
 using E_Commerce.Persistence.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,23 +27,20 @@ namespace E_Commerce.Persistence.Data.DataSeed
 				var HasProducts = await _dbContext.Products.AnyAsync();
 				var HasBrands = await _dbContext.Brands.AnyAsync();
 				var HasTypes = await _dbContext.Types.AnyAsync();
-				if (HasProducts && HasBrands && HasTypes) return;
+				var HasDeliveryMethods = await _dbContext.Set<DeliveryMethod>().AnyAsync();
+				if (HasProducts && HasBrands && HasTypes && HasDeliveryMethods) return;
 
 				if (!HasBrands)
-				{
 					await SeedDataFromJsonAsync<ProductBrand, int>("brands.json", _dbContext.Brands);
-				}
 				if(!HasTypes)
-				{
 					await SeedDataFromJsonAsync<ProductType, int>("types.json", _dbContext.Types);
-					await _dbContext.SaveChangesAsync();
-				}
 				if (!HasProducts)
-				{
 					await SeedDataFromJsonAsync<Product, int>("products.json", _dbContext.Products);
-					await _dbContext.SaveChangesAsync();
-				}
-					
+				if (!HasDeliveryMethods)
+					await SeedDataFromJsonAsync<DeliveryMethod, int>("delivery.json", _dbContext.Set<DeliveryMethod>());
+
+
+				await _dbContext.SaveChangesAsync();
 			}
 			catch (Exception ex)
 			{

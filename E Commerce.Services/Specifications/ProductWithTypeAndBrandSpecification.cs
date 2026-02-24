@@ -1,4 +1,4 @@
-﻿using E_Commerce.Domain.Entities.ProductMudule;
+﻿using E_Commerce.Domain.Entities.ProductModule;
 using E_Commerce.Shared;
 using System;
 using System.Collections.Generic;

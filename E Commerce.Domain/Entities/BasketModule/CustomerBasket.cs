@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace E_Commerce.Domain.Entities.BasketMudule
+namespace E_Commerce.Domain.Entities.BasketModule
 {
 	public class CustomerBasket
 	{

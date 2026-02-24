@@ -23,7 +23,7 @@ namespace E_Commerce.Presentation.Controllers
 
 
 		// GET api/products
-		[Authorize(Roles = "admin")]
+		[Authorize]
 		[HttpGet]
 		[RedisCache]
 		public async Task<ActionResult<PaginatedResuIt<ProductDTO>>> GetAllProducts([FromQuery] ProductQueryParams queryParams)

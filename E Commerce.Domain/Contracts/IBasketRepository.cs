@@ -1,4 +1,4 @@
-﻿using E_Commerce.Domain.Entities.BasketMudule;
+﻿using E_Commerce.Domain.Entities.BasketModule;
 using System;
 using System.Collections.Generic;
 using System.Text;

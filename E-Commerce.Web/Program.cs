@@ -82,6 +82,7 @@ namespace E_Commerce.Web
 					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTOptions:SecretKey"]!)),
 				};
 			});
+			builder.Services.AddScoped<IOrderService, OrderService>();
 			#endregion
 
 			var app = builder.Build();
